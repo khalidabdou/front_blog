@@ -95,7 +95,7 @@ class Header extends Component {
                                 </a>
                             </li>
                         </ul>
-                    
+
                         <div className="my-2 my-md-3">
                             <Buy />
                         </div>
