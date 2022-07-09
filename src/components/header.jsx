@@ -97,7 +97,7 @@ class Header extends Component {
                         </ul>
 
                         <div className="my-2 my-md-3">
-                            <Buy />
+                         
                         </div>
                     </div>
                 </nav>
