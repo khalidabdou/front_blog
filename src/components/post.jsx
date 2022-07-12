@@ -3,7 +3,7 @@ import Blocks, { ParagraphOutput } from 'editorjs-blocks-react-renderer';
 import ShowShimmer from './shimmer'
 
 
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser, { domToReact } from 'html-react-parser';
 
 
 import { useParams } from 'react-router-dom';
@@ -45,12 +45,12 @@ function Post() {
         return content ? <p style={style} className=''>{ReactHtmlParser(content)}</p> : '';
     };
 
-    const CustomCodeRenderer = ({ data, style }) => {
+    const CustomCodeRenderer = ({ data }) => {
         let content = null;
         if (typeof data === 'string') content = data;
         else if (typeof data === 'object' && data.text && typeof data.text === 'string') content = data.text;
 
-        return <pre>
+        return <div>
             <SyntaxHighlighter
                 language=""
                 style={darcula}
@@ -58,7 +58,9 @@ function Post() {
                 className={'mt-4 mb-4'}
                 lineProps={''}
             >{data.code}</SyntaxHighlighter>
-        </pre>
+        </div>
+
+
 
     };
 
@@ -115,45 +117,72 @@ function Post() {
     };
 
 
+    const options = {
+        replace: ({ attribs, children }) => {
+            if (!attribs) {
+                return;
+            }
+            //if attribs.class start with ''
+            if (attribs.class && attribs.class.startsWith('language')) {
+                return <SyntaxHighlighter
+                    language=""
+                    style={darcula}
+                    showLineNumbers={true}
+                    className={'mt-4 mb-4'}
+                    lineProps={''}
+                >{domToReact(children, options)}</SyntaxHighlighter> 
+            }
+           
 
+            if (attribs.class === 'prettify') {
+                return (
+                    <span style={{ color: 'hotpink' }}>
+                        {domToReact(children, options)}
+                    </span>
+                );
+            }
+        }
+    };
 
     const content = () => {
         if (body !== null && found !== null) {
-            return <Blocks data={body} renderers={renderers} config={{
-                code: {
-                    className: "language-js"
-                },
-                delimiter: {
-                    className: "border border-2 w-16 mx-auto"
-                },
-                embed: {
-                    className: "border-0"
-                },
-                header: {
-                    className: "font-bold h1"
-                },
-                image: {
-                    className: "w-full max-w-screen-md",
-                    actionsClassNames: {
-                        stretched: "w-full h-80 object-cover",
-                        withBorder: "border border-2",
-                        withBackground: "p-2",
-                    }
-                },
-                list: {
-                    className: "list-inside"
-                },
-                paragraph: {
-                    className: "bg-dark"
-                },
+            return ReactHtmlParser(body, options);
 
-                quote: {
-                    className: "py-3 px-5 italic font-serif"
-                },
-                table: {
-                    className: "table-auto"
-                }
-            }} />
+            // <Blocks data={body} renderers={renderers} config={{
+            //     code: {
+            //         className: "language-js"
+            //     },
+            //     delimiter: {
+            //         className: "border border-2 w-16 mx-auto"
+            //     },
+            //     embed: {
+            //         className: "border-0"
+            //     },
+            //     header: {
+            //         className: "font-bold h1"
+            //     },
+            //     image: {
+            //         className: "w-full max-w-screen-md",
+            //         actionsClassNames: {
+            //             stretched: "w-full h-80 object-cover",
+            //             withBorder: "border border-2",
+            //             withBackground: "p-2",
+            //         }
+            //     },
+            //     list: {
+            //         className: "list-inside"
+            //     },
+            //     paragraph: {
+            //         className: "bg-dark"
+            //     },
+
+            //     quote: {
+            //         className: "py-3 px-5 italic font-serif"
+            //     },
+            //     table: {
+            //         className: "table-auto"
+            //     }
+            // }} />
         } else if (found === null) {
             return <div className='text-center'>
                 <img src="empty.png" className='img-fluid mt-4 mb-4' alt="" />
@@ -174,13 +203,13 @@ function Post() {
                 //console.log(data);
 
                 console.log(res);
-                
+
                 const article = response.data.data.articles.data[0].attributes
-                
-                const js = JSON.parse(article.content)
+
+                //const js = JSON.parse(article.content)
                 //console.log(js);
-                setArticle(article)
-                setBody(js)
+                setArticle(article.content)
+                setBody(article.content)
                 //console.log(response.data.data.users_permissions_user);
                 //console.log(body);
                 //const blogTiltle = response.data.data.title
