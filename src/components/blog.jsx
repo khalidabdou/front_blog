@@ -10,15 +10,15 @@ class Blog extends Component {
         super(props)
         this.state = {
             article: props.article.attributes
-            
         }
     }
 
+
     image() {
-        if (this.state.article.image != null)
+        if (this.state.article.image.data != null)
             return (<img
                 className="img-fluid post-thumb "
-                src={'http://localhost:1337' + this.state.article.image.data.attributes.url}
+                src={process.env.REACT_APP_API_STRAPI + this.state.article.image.data.attributes.url}
                 alt="image"
             />)
         else return (<img

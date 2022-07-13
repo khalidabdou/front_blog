@@ -89,15 +89,21 @@ class Header extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/about">
+                                <a className="nav-link" href="https://portfolio.khalidabdellah.com" >
                                     <i className="fas fa-book fa-fw me-2" />
                                     My Portfolio
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/about" >
+                                    <i className="fas fa-blog fa-fw me-2" />
+                                    Blog With Us
                                 </a>
                             </li>
                         </ul>
 
                         <div className="my-2 my-md-3">
-                         
+                         <Buy />
                         </div>
                     </div>
                 </nav>

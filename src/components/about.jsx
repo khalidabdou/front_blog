@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
-import { greeting,socialMediaLinks } from '../infos'
+import { greeting, socialMediaLinks, bloggersList } from '../infos'
 
 import { withRouter } from "react-router";
+
+function bloggers() {
+    return (
+
+        bloggersList.map(blogger => (
+            <div className='col'>
+                <img src={blogger.avatar} className="rounded-circle mb-3 author"
+                    alt="Avatar" />
+                <h6 className="mb-2">{blogger.username}</h6>
+                <p className="text-muted">{blogger.title} <span className="badge bg-primary">PRO</span></p>
+
+            </div>
+        ))
+
+    )
+}
 function About() {
 
     return (
@@ -40,6 +56,14 @@ function About() {
                         </a>
                     </li>
                 </ul>
+                <p>{greeting.blogwithus}</p>
+
+                <h4>bloggers</h4>
+                
+                    <div className='row m-4'>
+                     {bloggers()}    
+                </div>
+               
 
             </div>
         </div>
@@ -47,4 +71,4 @@ function About() {
     )
 }
 
-export default  About
+export default About

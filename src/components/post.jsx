@@ -45,78 +45,6 @@ function Post() {
         return content ? <p style={style} className=''>{ReactHtmlParser(content)}</p> : '';
     };
 
-    const CustomCodeRenderer = ({ data }) => {
-        let content = null;
-        if (typeof data === 'string') content = data;
-        else if (typeof data === 'object' && data.text && typeof data.text === 'string') content = data.text;
-
-        return <div>
-            <SyntaxHighlighter
-                language=""
-                style={darcula}
-                showLineNumbers={true}
-                className={'mt-4 mb-4'}
-                lineProps={''}
-            >{data.code}</SyntaxHighlighter>
-        </div>
-
-
-
-    };
-
-    const CustomAlertRender = ({ data, style }) => {
-
-        let content = null;
-        //console.log(data);
-        if (typeof data === 'string') content = data;
-        else if (typeof data === 'object' && data.text && typeof data.text === 'string') content = data.text;
-        //console.log('content ' + data);
-
-
-        return <div className="alert alert-primary" role="alert">
-            {data.text}
-        </div>
-    }
-
-    const CustomImageRender = ({ data, style }) => {
-
-        let content = null;
-
-        console.log(data);
-        if (typeof data === 'string') content = data;
-        else if (typeof data === 'object' && data.text && typeof data.text === 'string') content = data.text;
-        //console.log('content ' + data);
-        const srci = data.file.url
-
-        return <img src={'http://localhost:1337' + srci} className="img-fluid mt-4 mb-4'" role="alert" />
-
-
-    }
-    const CustomHeaderRender = ({ data, style }) => {
-
-        let content = null;
-
-        console.log(data);
-        if (typeof data === 'string') content = data;
-        else if (typeof data === 'object' && data.text && typeof data.text === 'string') content = data.text;
-        //console.log('content ' + data);
-        const header = data.text
-
-        return <h3>{header}</h3>
-
-
-    }
-
-    const renderers = {
-        paragraph: CustomParagraphRenderer,
-        code: CustomCodeRenderer,
-        quote: CustomAlertRender,
-        image: CustomImageRender,
-        header: CustomHeaderRender
-
-    };
-
-
     const options = {
         replace: ({ attribs, children }) => {
             if (!attribs) {
@@ -130,16 +58,7 @@ function Post() {
                     showLineNumbers={true}
                     className={'mt-4 mb-4'}
                     lineProps={''}
-                >{domToReact(children, options)}</SyntaxHighlighter> 
-            }
-           
-
-            if (attribs.class === 'prettify') {
-                return (
-                    <span style={{ color: 'hotpink' }}>
-                        {domToReact(children, options)}
-                    </span>
-                );
+                >{domToReact(children, options)}</SyntaxHighlighter>
             }
         }
     };
@@ -147,42 +66,6 @@ function Post() {
     const content = () => {
         if (body !== null && found !== null) {
             return ReactHtmlParser(body, options);
-
-            // <Blocks data={body} renderers={renderers} config={{
-            //     code: {
-            //         className: "language-js"
-            //     },
-            //     delimiter: {
-            //         className: "border border-2 w-16 mx-auto"
-            //     },
-            //     embed: {
-            //         className: "border-0"
-            //     },
-            //     header: {
-            //         className: "font-bold h1"
-            //     },
-            //     image: {
-            //         className: "w-full max-w-screen-md",
-            //         actionsClassNames: {
-            //             stretched: "w-full h-80 object-cover",
-            //             withBorder: "border border-2",
-            //             withBackground: "p-2",
-            //         }
-            //     },
-            //     list: {
-            //         className: "list-inside"
-            //     },
-            //     paragraph: {
-            //         className: "bg-dark"
-            //     },
-
-            //     quote: {
-            //         className: "py-3 px-5 italic font-serif"
-            //     },
-            //     table: {
-            //         className: "table-auto"
-            //     }
-            // }} />
         } else if (found === null) {
             return <div className='text-center'>
                 <img src="empty.png" className='img-fluid mt-4 mb-4' alt="" />
@@ -199,9 +82,6 @@ function Post() {
             queries.getArticle(slug).then(response => {
                 //console.log(response.data.data.articles.data[0].attributes);
                 const res = response.data.data.articles.data
-                //setArticle(res)
-                //console.log(data);
-
                 console.log(res);
 
                 const article = response.data.data.articles.data[0].attributes
@@ -225,7 +105,8 @@ function Post() {
                 //const date2 = new Date(+year, month - 1, +day, +hours, +minutes, +seconds);
 
                 setPubshished(dateRelated)
-                setAuthor(response.data.data.articles.data[0].attributes.users_permissions_user.data.attributes)
+                if (response.data.data.articles.data[0].attributes.users_permissions_user.data)
+                    setAuthor(response.data.data.articles.data[0].attributes.users_permissions_user.data.attributes)
                 // console.log(authore);
 
             })
