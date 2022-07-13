@@ -1,4 +1,4 @@
-const API= process.env.REACT_APP_API_STRAPI
+const API= 'http://206.189.121.105:1337'
 const ARTICLS= API+'/articls/'
 const API_LANGUAGES= API+'/languages'
 const API_CATEGORIES= API+'/categories/'
