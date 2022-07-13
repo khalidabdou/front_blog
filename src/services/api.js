@@ -1,4 +1,4 @@
-const API= 'http://206.189.121.105:1337'
+const API= 'https://strapi.khalidabdellah.com'
 const ARTICLS= API+'/articls/'
 const API_LANGUAGES= API+'/languages'
 const API_CATEGORIES= API+'/categories/'
