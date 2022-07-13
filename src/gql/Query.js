@@ -23,7 +23,7 @@ export const Articles =(offset)=> `query Articles {
 
 
 export const Article = (slug) => {
-  console.log(slug);
+
   return `query Articles {
     articles (filters:{slug:{eq:"`+ slug + `"}}) {
       data {

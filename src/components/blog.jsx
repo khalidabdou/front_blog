@@ -28,7 +28,7 @@ class Blog extends Component {
         />)
     }
     componentDidMount() {
-        console.log(this.state.article);
+       
     }
     render() {
         const [dateRelated, timeRelated] = this.state.article.publishedAt.split('T');

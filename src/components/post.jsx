@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import Blocks, { ParagraphOutput } from 'editorjs-blocks-react-renderer';
+import React, {  useState, useEffect } from 'react';
+// import Blocks, { ParagraphOutput } from 'editorjs-blocks-react-renderer';
 import ShowShimmer from './shimmer'
 
 
@@ -8,10 +8,11 @@ import ReactHtmlParser, { domToReact } from 'html-react-parser';
 
 import { useParams } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+// import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+// import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 
 import queries from '../services/queries';
 

@@ -31,9 +31,9 @@ class Blogs extends Component {
         else offset = 0
 
         this.setState({ offset: offset })
-        console.log(offset);
+    
         queries.getArticles(offset).then(response => {
-            console.log(response.data.data.articles.data);
+            
             this.setState({ blogs: response.data.data.articles.data })
         })
     }
@@ -47,7 +47,7 @@ class Blogs extends Component {
 
     offset(){
         const current=parseInt(this.state.offset);
-        console.log(current);
+    
         return current +10
     }
     render() {

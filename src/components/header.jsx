@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { greeting, socialMediaLinks } from '../infos'
 
 import Buy from "./buy"
-import { from } from '@apollo/client';
+
 
 
 class Header extends Component {
