@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { greeting, socialMediaLinks, bloggersList } from '../infos'
 
-import { withRouter } from "react-router";
+import ReactGA from 'react-ga';
 
 function bloggers() {
     return (
@@ -19,6 +19,7 @@ function bloggers() {
     )
 }
 function About() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     return (
         <div className='text-center  main-wrapper'>
