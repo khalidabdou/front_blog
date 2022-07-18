@@ -1,10 +1,10 @@
-import React, {  useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import Blocks, { ParagraphOutput } from 'editorjs-blocks-react-renderer';
 import ShowShimmer from './shimmer'
 
 
 import ReactHtmlParser, { domToReact } from 'html-react-parser';
-
+import ReactGA from 'react-ga';
 
 import { useParams } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -108,6 +108,8 @@ function Post() {
                 setPubshished(dateRelated)
                 if (response.data.data.articles.data[0].attributes.users_permissions_user.data)
                     setAuthor(response.data.data.articles.data[0].attributes.users_permissions_user.data.attributes)
+                ReactGA.pageview(window.location.pathname + window.location.search);
+
                 // console.log(authore);
 
             })
